@@ -1,23 +1,31 @@
 {
-  "name": "web",
+  "name": "lili-reflexologia",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/run-qa.mjs",
+    "qa:header-glass": "node scripts/qa-header-glass.mjs",
+    "qa:wordmark": "node scripts/qa-wordmark-rendered.mjs",
+    "qa:responsive": "node scripts/qa-responsive-visual.mjs"
   },
   "dependencies": {
     "next": "16.3.2",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.185.4",
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
     "tailwindcss": "^4",

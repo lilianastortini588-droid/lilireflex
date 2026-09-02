@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reflexología Holística
 
-## Getting Started
+Landing inmersiva en Next.js para presentar reflexología podal, acroreflexología, abordaje cráneo-facial y lectura de pies. La interfaz informa y convierte exclusivamente mediante WhatsApp: no ofrece agenda, selector de horarios, formulario de datos, reserva interna ni persistencia administrada.
 
-First, run the development server:
+## Estado del producto
+
+- Canal de conversión: WhatsApp-only.
+- Número local configurado por fallback: `5491169702403`.
+- Publicación/indexación: cerrada por defecto con `PUBLICATION_STATUS=draft`.
+- Datos comerciales variables: se consultan por WhatsApp; no se inventan duración, precios, horarios ni ubicación.
+- QA local: reproducible con los comandos de esta página.
+- Producción: pendiente de confirmación del número, autorización de assets, validación comercial, aprobación visual del propietario y aprobación de publicación.
+
+## Desarrollo local
+
+Requisitos: Node.js compatible con Next.js 16 y npm.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Validación reproducible
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
 
-## Learn More
+La suite verifica el contrato WhatsApp-only, la ausencia de APIs y providers de booking, los mensajes contextuales, los assets aceptados, las tres composiciones `ReflexField`, las superficies visuales y el presupuesto de un único runtime Three.js/WebGL.
 
-To learn more about Next.js, take a look at the following resources:
+## Arquitectura visual
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+La página utiliza una sola superficie continua:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- fallback sólido nocturno `#0b0712`;
+- un fondo fijo basado en `public/brand/lili-lotus-background.jpg`;
+- un único `VisualStage`, canvas, `THREE.WebGLRenderer`, escena, cámara ortográfica, plano fullscreen, shader y scheduler de RAF;
+- un nodo CSS global de atmósfera con dos pseudo-elementos;
+- SVG de identidad y navegación editorial;
+- ventanas glass translúcidas con blur real limitado al header, menú, hero y CTA;
+- `ReflexField` determinista en hero, introducción y beneficios;
+- frame estático en touch/reduced motion y fallback CSS en ahorro de datos, memoria baja o viewport menor a 320 px;
+- tiers adaptativos de 60, 45 y 30 FPS con pausa durante scroll sostenido.
 
-## Deploy on Vercel
+Three.js se carga dinámicamente sólo en el cliente. El contenido y la mayor parte de las secciones permanecen como Server Components; sólo menú, mapa, FAQ y runtime visual hidratan interacción.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Assets y colorimetría
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `lili-lotus-background.jpg`: fondo global indicado por el propietario.
+- `pearlescent-foot.png`: identidad visual en hero, campos, lectura de pies, CTA y wordmark.
+- La iluminación ambiental se resuelve con tres gradientes radiales CSS que se atenúan y reaparecen cada 5,2 a 7,6 segundos en zonas acotadas y aleatorias; no responde al puntero, no publica imágenes florales ni incorpora adornos botánicos.
+- El flyer de referencia no se publica: se conserva sólo como referencia documental de lavandas cálidos, rosa nacarado y blanco crema.
+
+`docs/images.jpeg` y `docs/images2.jpeg` conservan sus originales y tienen conversiones no destructivas `docs/images.png` y `docs/images2.png`. Ambas conversiones permanecen fuera de `public/` y no forman parte de la interfaz publicada.
+
+El PNG original conserva su fondo oscuro; la interfaz lo integra mediante mezcla `screen` sobre el campo violeta para mantener bordes nacarados sin generar una copia destructiva.
+
+## WhatsApp
+
+Todos los enlaces se construyen en `src/lib/whatsapp.ts` mediante:
+
+```ts
+buildWhatsAppUrl({ source, technique, promotion, message })
+```
+
+Los CTA de header, hero, técnicas, mapa, lectura, experiencia, propuestas, FAQ, CTA final, sticky mobile y flotante desktop usan esa fuente única. Los mensajes no contienen datos médicos ni afirman confirmación de una sesión.
+
+## Reservas históricas
+
+`data/reservations.json` se conserva intacto, ignorado por Git y fuera del runtime. No se lee, copia, migra ni elimina. Las antiguas APIs, providers, stores, migración Supabase y pruebas de booking fueron retiradas del producto porque ya no tienen consumidores.
+
+## Publicación
+
+Antes de cambiar `PUBLICATION_STATUS=ready` se requieren evidencias actuales de:
+
+1. número de WhatsApp confirmado;
+2. autorización/licencia de los assets publicados;
+3. modalidad, valores, duración y ubicación validados cuando corresponda;
+4. QA visual desktop/mobile, teclado, reduced motion, contraste y consola sobre el build desplegado;
+5. aprobación visual del propietario y aprobación explícita de publicación.
+
+Los PASS locales no equivalen a despliegue, autorización comercial ni producción lista.
