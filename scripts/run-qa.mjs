@@ -1,6 +1,8 @@
 import { spawn } from "node:child_process";
 
 const tests = [
+  "scripts/qa-opengraph-image.mjs",
+  "scripts/qa-public-metadata.mjs",
   "scripts/qa-transparent-water.mjs",
   "scripts/qa-whatsapp-only.mjs",
   "scripts/qa-visual-system.mjs",

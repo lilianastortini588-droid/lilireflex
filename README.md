@@ -6,7 +6,7 @@ Landing inmersiva en Next.js para presentar reflexología podal, acroreflexolog�
 
 - Canal de conversión: WhatsApp-only.
 - Número local configurado por fallback: `5491169702403`.
-- Publicación/indexación: cerrada por defecto con `PUBLICATION_STATUS=draft`.
+- URL pública e indexación técnica: `https://lilireflex.capacero.ar`, con rastreo habilitado.
 - Datos comerciales variables: se consultan por WhatsApp; no se inventan duración, precios, horarios ni ubicación.
 - QA local: reproducible con los comandos de esta página.
 - Producción: pendiente de confirmación del número, autorización de assets, validación comercial, aprobación visual del propietario y aprobación de publicación.
@@ -74,9 +74,9 @@ Los CTA de header, hero, técnicas, mapa, lectura, experiencia, propuestas, FAQ,
 
 `data/reservations.json` se conserva intacto, ignorado por Git y fuera del runtime. No se lee, copia, migra ni elimina. Las antiguas APIs, providers, stores, migración Supabase y pruebas de booking fueron retiradas del producto porque ya no tienen consumidores.
 
-## Publicación
+## Validaciones de publicación pendientes
 
-Antes de cambiar `PUBLICATION_STATUS=ready` se requieren evidencias actuales de:
+La indexación técnica está habilitada. La aprobación integral del producto sigue requiriendo evidencias actuales de:
 
 1. número de WhatsApp confirmado;
 2. autorización/licencia de los assets publicados;

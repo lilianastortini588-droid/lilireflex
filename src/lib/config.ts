@@ -17,7 +17,7 @@ export const site = {
   },
   locale: "es-AR",
   timezone: "America/Argentina/Buenos_Aires",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: "https://lilireflex.capacero.ar",
   contact: {
     whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "5491169702403",
     locationLabel: process.env.NEXT_PUBLIC_LOCATION_LABEL ?? "",

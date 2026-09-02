@@ -39,7 +39,7 @@ export const metadata: Metadata = {
       "Experiencias de bienestar, presencia y cuidado personalizado.",
   },
   robots: {
-    index: process.env.PUBLICATION_STATUS === "ready",
+    index: true,
     follow: true,
   },
   appleWebApp: {

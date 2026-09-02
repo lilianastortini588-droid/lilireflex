@@ -2,12 +2,11 @@ import type { MetadataRoute } from "next";
 import { site } from "@/lib/config";
 
 export default function robots(): MetadataRoute.Robots {
-  const ready = process.env.PUBLICATION_STATUS === "ready";
   return {
     rules: {
       userAgent: "*",
-      ...(ready ? { allow: "/" } : { disallow: "/" }),
+      allow: "/",
     },
-    sitemap: ready ? `${site.url}/sitemap.xml` : undefined,
+    sitemap: `${site.url}/sitemap.xml`,
   };
 }
